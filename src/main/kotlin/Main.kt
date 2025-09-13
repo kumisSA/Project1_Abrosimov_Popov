@@ -1,7 +1,37 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun main() {
+    println("Введите строку:")
+    val input = readLine() ?: "" //Считывает строку ведённую
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+    if (input.isEmpty()) {
+        println("") //Если строка пустая программа выключается
+        return
+    }
+
+    val sb = StringBuilder()
+    var currentChar = input[0] //берёт первый символ строки как текущий символ группы
+    var count = 1 // счётчик одинаковых букв
+
+// основа
+    for (i in 1 until input.length) { //пербирает индексы  строки
+        val c = input[i] // текущий символ в ходе итерации
+
+        if (c == currentChar) { // если символ равен текущему  символу группы увеличивается счётчик
+            count++
+        }
+        else
+        {
+            sb.append(currentChar) // добавляет символ которым заканчивалась группа
+            if (count > 1) sb.append(count) // если группа длинее 1 добавляем его длину (если=1 пропускается число)
+            currentChar = c // начало новой группы
+            count = 1 // новый счётчик для новой группы
+        }
+    }
+    // Добавить последний символ/группу
+    sb.append(currentChar) // добавляет символ последней группы
+    if (count > 1) sb.append(count) // если группа длинее 1 добавляется его длина (если=1 пропускается число)
+
+    println(sb.toString()) // вывод
 }
+
+
+
